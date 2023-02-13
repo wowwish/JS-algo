@@ -72,6 +72,7 @@ function countUniqueValues(arr) {
 }
 
 
+// another implementation
 function test(arr) {
     let i = 0;
     if (arr.length === 0) {
@@ -79,11 +80,11 @@ function test(arr) {
     }
     else {
         let j = 0;
-        while (arr[j+1]) {
+        while (typeof(arr[j+1]) != "undefined") {
             if (arr[i] !== arr[j+1]) {
                 i++;
-                arr[i] = arr[j];
                 j++;
+                arr[i] = arr[j];
             }
             else {
                 j++;
@@ -95,3 +96,4 @@ function test(arr) {
 
 console.log(test([1, 1, 1, 1, 1, 2]))
 console.log(test([1, 2, 3, 4, 4, 7, 7, 12, 12, 13]))
+console.log(test([-2, -1, -1, 0, 1]))

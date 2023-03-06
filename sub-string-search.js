@@ -27,7 +27,10 @@ console.log(naiveStringSearch("wowomgzomg", "omg"));
 
 
 
-// KMP (Knuth-Morris-Pratt) STRING SEARCHING
+// KMP (Knuth-Morris-Pratt) STRING SEARCHING ALGORITHM
+
+// KMP is a pattern matching algorithm that utilizes the repeating nature of sub-patterns within the pattern
+// string to 
 
 function kmpStringSearch(longstr, substr) {
     

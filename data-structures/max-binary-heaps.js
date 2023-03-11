@@ -44,6 +44,8 @@ class MaxBinaryHeap {
         // swap the inserted value with the parent node value if inserted value > parent node's value
         // continue this swapping operation until inserted value < parent node's value.
         this.values.push(val);
+        // Edge cases like empty values array or values array with only one element are automatically
+        // handled properly!
         let currentInd = this.values.length - 1;
         let parentInd = Math.floor((currentInd - 1) / 2);
         // While loop to keep swapping until the value is inserted in the proper position in the 
@@ -63,18 +65,54 @@ class MaxBinaryHeap {
     // the MaxBinaryHeap by swapping the root with its children until the root gets the maximum or highest
     // value in the MaxBinaryHeap.
     ExtractMax() {
-        let max = this.values.shift();
-        this.values.unshift(this.values.pop());
-        let currentIdx = 0;
-        let childIdx = this.values[1] > this.values[2] ? 1 : 2
-        while (this.values[currentIdx] <= this.values[childIdx]) {
-            let temp = this.values[currentIdx];
-            this.values[currentIdx] = this.values[childIdx];
-            this.values[childIdx] = temp;
-            currentIdx = childIdx;
-            childIdx = this.values[(currentIdx * 2) + 1] > this.values[(currentIdx * 2) + 2] ? (currentIdx * 2) + 1 : (currentIdx * 2) + 2;
+        // In a MaxBinaryHeap, the root always has the maximum / highest value
+        // Swap the value at index 0 (root) with the value at the last index of the MaxBinaryHeap values array.
+        // Pop from the values property so you can return the swapped root (maximum value of the MaxBinaryHeap)
+        // Have the new swapped root sink down to its proper spot in the values array of the MaxBinaryHeap!
+        // Your parent index starts at 0 (the root)
+        // find the indices of the two children of the parent: ((2 * parent index) + 1) and ((2 * parent index) + 2),
+        // and make sure the child indices are not out of bounds!
+        // If the left or right child is greater than the parent element, SWAP them with the parent element! If both
+        // the child elements are larger than the parent element, SWAP with the largest child element! 
+        // The child element index you swapped to, now becomes the new parent index
+        // Keep looping and swapping until neither child of the parent element is larger than the parent element!
+        // Finally, return the old root!
+        // KEEP IN MIND THAT THERE IS AN INHERENT ASSUMPTION IN THE MaxBinaryHeap THAT THE values PROPERTY
+        // WILL BE USED TO FILL N THE MaxBinaryHeap IN A PARTICULAR ORDER: ROOT FIRST, THEN LEFT CHILD, THEN
+        // RIGHT CHILD, THEN LEFT CHILD'S CHILDREN AND THEN RIGHT CHILD'S CHILDREN AND SO ON ....
+
+        // Handle edge cases when the values array is empty, has only one element
+        if (this.values.length <= 1) return this.values.pop();
+        // extract the root (maximum or highest value in the MaxBinaryHeap values array)
+        const max = this.values[0];
+        // take the last element in the MaxBinaryHeap and make it the new root
+        this.values[0] = this.values.pop();
+        let currentIdx = 0; // the newly inserted root
+        let childIdx = null;
+        // sinking down: sift down the newly inserted root to its correct position within the MaxBinaryHeap
+        while (true) {
+            // get the index of the child with the highest value for the current parent index
+            // also make sure that the child index falls within 0 to this.values.length - 1
+            let leftChildIdx = (currentIdx * 2) + 1;
+            let rightChildIdx = (currentIdx * 2) + 2;
+            if ((leftChildIdx < this.values.length) && (rightChildIdx < this.values.length)) {
+                childIdx = this.values[leftChildIdx] > this.values[rightChildIdx] ? leftChildIdx : rightChildIdx;
+            }
+            else if (leftChildIdx < this.values.length) childIdx = leftChildIdx;
+            else if (rightChildIdx < this.values.length) childIdx = rightChildIdx;
+            else break;
+            // swap the newly inserted root value with its highest valued child. Repeat iteratively while
+            // keeping track of the index of this new root value until it gets placed in its appropriate
+            // position in the MaxBinaryHeap where, its value is > Both its children's values.
+            if (this.values[childIdx] >= this.values[currentIdx]) {
+                let temp = this.values[currentIdx];
+                this.values[currentIdx] = this.values[childIdx];
+                this.values[childIdx] = temp;
+                currentIdx = childIdx;
+            }
+            else break;
         }
-        return max;
+        return max; // return the extracted maximum / highest value
     }
 }
 
@@ -87,4 +125,22 @@ mbh.insert(45);
 mbh.insert(199);
 console.log(mbh.values);
 console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
+// console.log(mbh.ExtractMax());
 console.log(mbh.values);
+
+
+// TIME COMPLEXITY:
+// INSERTION - O(logN) - Because of the order followed in insertion of children - one level is fully filled
+// before the next level of depth is started for filling
+// REMOVAL - O(logN) - ExtractMax() to remove the highest/maximum element from the root
+// SEARCH - O(N) - Due to lack of ordering compared to a BST

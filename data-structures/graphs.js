@@ -229,7 +229,13 @@ class Graph {
     recursiveBFS(start) {
         // Create a result array to add all the Vertices in the order that they are visited and
         // return at the end. Create an object to store and mark visited Vertices. Also create a
-        // queue to store 
+        // queue to store the Vertices to visit next. Create a helper method that takes the queue as
+        // input. If the queue is empty, this helper method should return the result array. Otherwise, 
+        // the helper method will remove the first Vertex from the queue and check it. If this first
+        // Vertex from the queue is not already visited, it should be pushed to the result array and 
+        // should be marked as discovered in the visited Vertices object. Then, the undiscovered 
+        // neighbors of this first Vertex from the queue should be added to the queue. Finally, the
+        // helper method should call itself recursively with the updated quque.
         let result = [];
         let visited = {};
         let queue = [start]; // queue to store all undiscovered neighbors of current Vertex

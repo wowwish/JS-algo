@@ -18,7 +18,8 @@
 // THERE IS MORE THAN ONE WAY TO IMPLEMENT A STACK AS IT IS AN ABSTRACT CONCEPT.
 // * ARRAY IMPLEMENTATION OF STACK IN JS:
 // we can treat an in-built JS array as a Stack
-
+// THE MOST EFFICIENT WAY TO USE AN ARRAY AS A STACK IS TO PUSH AND POP ELEMENTS FROM THE END OF THE
+// ARRAY TO PREVENT RE-INDEXING
 // stack from the end
 let endStack = []; 
 // use .push() to populate endStack from the end
@@ -30,7 +31,9 @@ console.log(endStack);
 console.log(endStack.pop());
 
 
-// stack from the begining - INEFFICIENT BECAUSE OF HOW ARRAYS WORK (ISSUES WITH UPDATING ARRAY INDICES)
+// ADDING AND REMOVING ELEMENTS FROM THE BEGINING OF AN ARRAY THAT IS TREATED AS A STACK
+// IS INEFFICIENT BECAUSE OF HOW ARRAYS WORK (ISSUES WITH UPDATING ARRAY INDICES)
+// stack from the begining
 let beginStack = [];
 // use .unshift() to populate beginStack from the start
 beginStack.unshift("create new file");

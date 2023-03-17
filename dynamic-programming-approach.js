@@ -97,3 +97,5 @@ function tabulatedFibonacci(n) {
     }
     return fibNums[n]; // finally, return the solution for the whole problem!
 }
+
+// TIME COMPLEXITY OF THIS TABULATED: BOTTOM-UP APPROACH IS ALSO O(N)

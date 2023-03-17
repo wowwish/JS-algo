@@ -13,7 +13,7 @@
 // INSERTION INTO AND REMOVAL FROM THE HEAP HAS A TIME COMPLEXITY OF O(logN)
 
 
-// PRIORITY QUEUE USING A MINIMUM BINARY HEAP (every parent is smaller than their children):
+// PRIORITY QUEUE USING A MINIMUM BINARY HEAP (every parent's priority is smaller than their children's prority):
 // A lower priority number means a higher precedence over other nodes with higher priority numbers.
 class Node {
     constructor(val, p) {
